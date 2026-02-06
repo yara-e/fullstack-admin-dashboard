@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  amount       Float
+  status       OrderStatus    @default(PENDING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  id           Int            @id @default(autoincrement())
+  userId       Int
+  User         User           @relation(fields: [userId], references: [id])
+  OrderProduct OrderProduct[]
+  Payment      Payment?
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model OrderProduct {
+  quantity  Int
+  price     Float
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  Order     Order   @relation(fields: [orderId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Payment {
+  method    PaymentMethod
+  status    PaymentStatus
+  paidAt    DateTime?
+  createdAt DateTime      @default(now())
+  id        Int           @id @default(autoincrement())
+  orderId   Int           @unique
+  Order     Order         @relation(fields: [orderId], references: [id])
+}
+
+model Product {
+  name         String
+  price        Float
+  stock        Int
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  id           Int            @id @default(autoincrement())
+  isActive     Boolean?       @default(true)
+  isDeleted    Boolean?       @default(false)
+  OrderProduct OrderProduct[]
+}
+
+model User {
+  name      String
+  email     String   @unique
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  id        Int      @id @default(autoincrement())
+  password  String?
+  isDeleted Boolean? @default(false)
+  Order     Order[]
+
+  @@index([role])
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "users_created_at_id_idx")
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CARD
+  CASH
+  WALLET
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  MANAGER
+}
