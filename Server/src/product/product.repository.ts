@@ -17,9 +17,7 @@ export const findProducts = async ({
     minPrice,
     maxPrice,
     isActive,}: FindProductsParams) => {
-        if (after && before) {
-            throw new Error("Cannot use both 'after' and 'before'");
-          }
+        
     const isBackward = Boolean(before);
     const cursor = after ?? before;  // asign var to first value that is not null or undefined.
    const where: any = {
@@ -41,20 +39,28 @@ export const findProducts = async ({
     where.isActive = isActive;
   }
 
-  if (cursor) {
-    where.OR = [
-      {
-        createdAt: isBackward
-          ? { gt: cursor.createdAt }
-          : { lt: cursor.createdAt },
-      },
-      {
-        createdAt: cursor.createdAt,
-        id: isBackward
-          ? { gt: cursor.id }
-          : { lt: cursor.id },
-      },
-    ];
+ if (cursor) {
+    if (isBackward) {
+      // backward: get items newer than cursor
+      where.AND = [
+        {
+          OR: [
+            { createdAt: { gt: cursor.createdAt } },
+            { createdAt: cursor.createdAt, id: { gt: cursor.id } },
+          ],
+        },
+      ];
+    } else {
+      // forward: get items older than cursor
+      where.AND = [
+        {
+          OR: [
+            { createdAt: { lt: cursor.createdAt } },
+            { createdAt: cursor.createdAt, id: { lt: cursor.id } },
+          ],
+        },
+      ];
+    }
   }
   const products = await prisma.product.findMany({
     where,

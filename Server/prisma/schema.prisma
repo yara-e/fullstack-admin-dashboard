@@ -11,7 +11,6 @@ model Order {
   amount       Float
   status       OrderStatus    @default(PENDING)
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime
   id           Int            @id @default(autoincrement())
   userId       Int
   User         User           @relation(fields: [userId], references: [id])
@@ -50,10 +49,10 @@ model Product {
   price        Float
   stock        Int
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime
   id           Int            @id @default(autoincrement())
   isActive     Boolean?       @default(true)
   isDeleted    Boolean?       @default(false)
+  updatedAt    DateTime       @default(now())
   OrderProduct OrderProduct[]
 }
 

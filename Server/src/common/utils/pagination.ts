@@ -16,9 +16,7 @@ export const getPagination = (page?: string, limit?: string) => {
     
 }
 
-export const getCursorPagination=(query:any)=>{
-    const limit = Math.min(Number(query.limit) || 10 , 100);
-const after =query.after? JSON.parse(Buffer.from(query.after , 'base64').toString()):null;
-const before =query.before? JSON.parse(Buffer.from(query.before , 'base64').toString()):null;
-return {limit , after , before};
-} 
+export const getCursorPagination = (query: any) => {
+  const limit = Math.min(Number(query.limit) || 10, 100);
+  return { limit, after: query.after, before: query.before };
+}; 

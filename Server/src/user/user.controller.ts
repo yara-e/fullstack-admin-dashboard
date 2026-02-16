@@ -19,5 +19,5 @@ export const updateUserHandler = async (req: Request , res: Response) => {
 export const deleteUserHandler = async (req: Request , res: Response) => {
   const id = Number(req.params.id);
   await softDeleteUserService(id);
-  res.status(204).send();
+  res.json("User deleted");
 };

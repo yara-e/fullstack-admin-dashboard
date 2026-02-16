@@ -16,16 +16,10 @@ export const findUsers = async ({
   search,
   role,
 }: FindUsersParams) => {
-  if (after && before) {
-    throw new Error("Cannot use both 'after' and 'before'");
-  }
-
   const isBackward = Boolean(before);
-  const cursor = after ?? before;  // asign var to first value that is not null or undefined.
+  const cursor = after ?? before;
 
-  const where: any = {
-    isDeleted: false,
-  };
+  const where: any = { isDeleted: false };
 
   if (search) {
     where.OR = [
@@ -34,25 +28,31 @@ export const findUsers = async ({
     ];
   }
 
-  if (role) {
-    where.role = role;
-  }
+  if (role) where.role = role;
 
-  // Cursor filtering
+  // CURSOR LOGIC
   if (cursor) {
-    where.OR = [
-      {
-        createdAt: isBackward
-          ? { gt: cursor.createdAt }
-          : { lt: cursor.createdAt },
-      },
-      {
-        createdAt: cursor.createdAt,
-        id: isBackward
-          ? { gt: cursor.id }
-          : { lt: cursor.id },
-      },
-    ];
+    if (isBackward) {
+      // backward: get items newer than cursor
+      where.AND = [
+        {
+          OR: [
+            { createdAt: { gt: cursor.createdAt } },
+            { createdAt: cursor.createdAt, id: { gt: cursor.id } },
+          ],
+        },
+      ];
+    } else {
+      // forward: get items older than cursor
+      where.AND = [
+        {
+          OR: [
+            { createdAt: { lt: cursor.createdAt } },
+            { createdAt: cursor.createdAt, id: { lt: cursor.id } },
+          ],
+        },
+      ];
+    }
   }
 
   const users = await prisma.user.findMany({
@@ -64,7 +64,6 @@ export const findUsers = async ({
     ],
   });
 
-  // Normalize response order
   return isBackward ? users.reverse() : users;
 };
 

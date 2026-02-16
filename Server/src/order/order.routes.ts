@@ -10,9 +10,9 @@ import { allowRoles  } from "../common/middleware/role.middleware";
 const orderRouter = Router();
 
  
-orderRouter.get("/", authenticate, getOrdersHandler);
+orderRouter.get("/", authenticate,allowRoles("ADMIN", "MANAGER"), getOrdersHandler);
 orderRouter.patch("/:id",authenticate,allowRoles("ADMIN", "MANAGER"),updateOrderStatusHandler);
-orderRouter.get("/:id", authenticate, getOrderDetailsHandler);
+orderRouter.get("/:id", authenticate,allowRoles("ADMIN", "MANAGER"), getOrderDetailsHandler);
 
 export default orderRouter;
 

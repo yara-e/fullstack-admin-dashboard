@@ -20,6 +20,7 @@ const isPasswordValid = await comparePassword(password, user.password);
         id: user.id,
          role: user.role,
     });
+
     return { token ,
         user: {
         id: user.id,
