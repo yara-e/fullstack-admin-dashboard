@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderCompletionRateRaw = exports.getLowStockProductsRaw = exports.getTopCustomersRaw = exports.getOrdersPerHourRaw = exports.getRevenueByPaymentMethodRaw = exports.getProductsByIds = exports.getBestSellersRaw = exports.getUsersByRoleRaw = exports.getOrdersByStatusRaw = exports.getOrdersTrendsRaw = exports.getOverView = void 0;
+exports.getOrderCompletionRateRaw = exports.getLowStockProductsRaw = exports.getOrdersPerHourRaw = exports.getRevenueByPaymentMethodRaw = exports.getProductsByIds = exports.getBestSellersRaw = exports.getUsersByRoleRaw = exports.getOrdersByStatusRaw = exports.getOrdersTrendsRaw = exports.getOverView = void 0;
 const client_1 = require("../common/db/client");
 const client_2 = require("@prisma/client");
 // ---------- Overview ----------
@@ -91,13 +91,13 @@ const getOrdersPerHourRaw = async (days) => {
 };
 exports.getOrdersPerHourRaw = getOrdersPerHourRaw;
 // ---------- Top Customers ----------
-const getTopCustomersRaw = async (limit = 5) => client_1.prisma.order.groupBy({
-    by: ["userId"],
-    _sum: { amount: true },
-    orderBy: { _sum: { amount: "desc" } },
-    take: limit,
-});
-exports.getTopCustomersRaw = getTopCustomersRaw;
+// export const getTopCustomersRaw = async (limit: number = 5) =>
+//   prisma.order.groupBy({
+//     by: ["userId"],
+//     _sum: { amount: true },
+//     orderBy: { _sum: { amount: "desc" } },
+//     take: limit,
+//   });
 // ---------- Low Stock Products ----------
 const getLowStockProductsRaw = async (threshold = 5) => client_1.prisma.product.findMany({
     where: { stock: { lte: threshold }, isDeleted: false },

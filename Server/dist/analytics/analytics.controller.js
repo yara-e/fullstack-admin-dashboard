@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderCompletionRateHandler = exports.lowStockProductsHandler = exports.topCustomersHandler = exports.ordersPerHourHandler = exports.revenueByPaymentMethodHandler = exports.bestSellersHandler = exports.userRolesHandler = exports.ordersStatusHandler = exports.ordersTrendHandler = exports.overviewHandler = void 0;
+exports.orderCompletionRateHandler = exports.lowStockProductsHandler = exports.ordersPerHourHandler = exports.revenueByPaymentMethodHandler = exports.bestSellersHandler = exports.userRolesHandler = exports.ordersStatusHandler = exports.ordersTrendHandler = exports.overviewHandler = void 0;
 const service = __importStar(require("./analytics.service"));
 // ---------- Overview ----------
 const overviewHandler = async (_req, res) => {
@@ -74,11 +74,10 @@ const ordersPerHourHandler = async (req, res) => {
 };
 exports.ordersPerHourHandler = ordersPerHourHandler;
 // ---------- Top Customers ----------
-const topCustomersHandler = async (req, res) => {
-    const limit = Number(req.query.limit || 5);
-    res.json(await service.getTopCustomersService(limit));
-};
-exports.topCustomersHandler = topCustomersHandler;
+// export const topCustomersHandler = async (req: Request, res: Response) => {
+//   const limit = Number(req.query.limit || 5);
+//   res.json(await service.getTopCustomersService(limit));
+// };
 // ---------- Low Stock Products ----------
 const lowStockProductsHandler = async (req, res) => {
     const threshold = Number(req.query.threshold || 5);

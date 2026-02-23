@@ -68,20 +68,20 @@ export const mapOrdersPerHour = (rows: any[]): chartResponse => ({
 });
 
 // ---------- Top Customers ----------
-export const mapTopCustomersChart = async (rows: any[]): Promise<chartResponse> => {
-  // rows contain { userId, _sum: { amount } }
-  const { prisma } = require("../common/db/client");
-  const users = await prisma.user.findMany({
-    where: { id: { in: rows.map(r => r.userId) } },
-    select: { id: true, name: true },
-  });
-  const userMap = new Map(users.map(u => [u.id, u.name]));
+// export const mapTopCustomersChart = async (rows: any[]): Promise<chartResponse> => {
+//   // rows contain { userId, _sum: { amount } }
+//   const { prisma } = require("../common/db/client");
+//   const users = await prisma.user.findMany({
+//     where: { id: { in: rows.map(r => r.userId) } },
+//     select: { id: true, name: true },
+//   });
+//   const userMap = new Map(users.map(u => [u.id, u.name]));
 
-  return {
-    labels: rows.map(r => userMap.get(r.userId) || "Unknown"),
-    datasets: [{ label: "Spent Amount", data: rows.map(r => r._sum.amount ?? 0) }],
-  };
-};
+//   return {
+//     labels: rows.map(r => userMap.get(r.userId) || "Unknown"),
+//     datasets: [{ label: "Spent Amount", data: rows.map(r => r._sum.amount ?? 0) }],
+//   };
+// };
 
 // ---------- Low Stock Products ----------
 export const mapLowStockProducts = (rows: any[]): chartResponse => ({

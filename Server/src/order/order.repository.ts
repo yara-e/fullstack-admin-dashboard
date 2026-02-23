@@ -4,8 +4,8 @@ import { FindOrderQuery } from "./order.types";
 
 interface FindOrdersParams {
   limit: number;
-  after?: { createdAt: string; id: number } | null;
-  before?: { createdAt: string; id: number } | null;
+  after?: { createdAt: Date; id: number } | null;
+  before?: { createdAt: Date; id: number } | null;
   status?: string;
   userId?: number;
 }

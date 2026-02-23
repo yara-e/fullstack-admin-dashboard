@@ -30,20 +30,23 @@ export const getProductService = async (query: FindProductQuery) => {
     search: query.search,
     minPrice,
     maxPrice,
-    isActive: query.isActive,
+    isActive:
+      query.isActive !== undefined
+        ? query.isActive === "true"
+        : undefined,
   })
 
   const hasMore = products.length > limit;
 
- if (hasMore) {
-  if (before) {
-    // backward pagination → remove first item
-    products.shift();
-  } else {
-    // forward pagination → remove last item
-    products.pop();
+  if (hasMore) {
+    if (before) {
+      // backward pagination → remove first item
+      products.shift();
+    } else {
+      // forward pagination → remove last item
+      products.pop();
+    }
   }
-}
   // cursors
   let nextCursor: string | null = null;
   let prevCursor: string | null = null;

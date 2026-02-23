@@ -49,7 +49,7 @@ analyticsRouter.get("/charts/best-sellers", ...route, controller.bestSellersHand
 // New Advanced Analytics
 analyticsRouter.get("/charts/revenue-by-payment", ...route, controller.revenueByPaymentMethodHandler);
 analyticsRouter.get("/charts/orders-per-hour", ...route, controller.ordersPerHourHandler);
-analyticsRouter.get("/charts/top-customers", ...route, controller.topCustomersHandler);
+//analyticsRouter.get("/charts/top-customers", ...route, controller.topCustomersHandler);
 analyticsRouter.get("/charts/low-stock-products", ...route, controller.lowStockProductsHandler);
 analyticsRouter.get("/charts/order-completion-rate", ...route, controller.orderCompletionRateHandler);
 exports.default = analyticsRouter;

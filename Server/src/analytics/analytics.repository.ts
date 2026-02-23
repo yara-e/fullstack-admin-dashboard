@@ -96,13 +96,13 @@ export const getOrdersPerHourRaw = async (days: number) => {
 };
 
 // ---------- Top Customers ----------
-export const getTopCustomersRaw = async (limit: number = 5) =>
-  prisma.order.groupBy({
-    by: ["userId"],
-    _sum: { amount: true },
-    orderBy: { _sum: { amount: "desc" } },
-    take: limit,
-  });
+// export const getTopCustomersRaw = async (limit: number = 5) =>
+//   prisma.order.groupBy({
+//     by: ["userId"],
+//     _sum: { amount: true },
+//     orderBy: { _sum: { amount: "desc" } },
+//     take: limit,
+//   });
 
 // ---------- Low Stock Products ----------
 export const getLowStockProductsRaw = async (threshold: number = 5) =>

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mapOrderCompletionRate = exports.mapLowStockProducts = exports.mapTopCustomersChart = exports.mapOrdersPerHour = exports.mapRevenueByPaymentMethod = exports.mapBestSellersChart = exports.mapUserRolesChart = exports.mapStatusChart = exports.mapOrdersTrendChart = void 0;
+exports.mapOrderCompletionRate = exports.mapLowStockProducts = exports.mapOrdersPerHour = exports.mapRevenueByPaymentMethod = exports.mapBestSellersChart = exports.mapUserRolesChart = exports.mapStatusChart = exports.mapOrdersTrendChart = void 0;
 // ---------- Orders Trend ----------
 const mapOrdersTrendChart = (rows, days, groupBy) => ({
     labels: rows.map(r => {
@@ -60,20 +60,19 @@ const mapOrdersPerHour = (rows) => ({
 });
 exports.mapOrdersPerHour = mapOrdersPerHour;
 // ---------- Top Customers ----------
-const mapTopCustomersChart = async (rows) => {
-    // rows contain { userId, _sum: { amount } }
-    const { prisma } = require("../common/db/client");
-    const users = await prisma.user.findMany({
-        where: { id: { in: rows.map(r => r.userId) } },
-        select: { id: true, name: true },
-    });
-    const userMap = new Map(users.map(u => [u.id, u.name]));
-    return {
-        labels: rows.map(r => userMap.get(r.userId) || "Unknown"),
-        datasets: [{ label: "Spent Amount", data: rows.map(r => r._sum.amount ?? 0) }],
-    };
-};
-exports.mapTopCustomersChart = mapTopCustomersChart;
+// export const mapTopCustomersChart = async (rows: any[]): Promise<chartResponse> => {
+//   // rows contain { userId, _sum: { amount } }
+//   const { prisma } = require("../common/db/client");
+//   const users = await prisma.user.findMany({
+//     where: { id: { in: rows.map(r => r.userId) } },
+//     select: { id: true, name: true },
+//   });
+//   const userMap = new Map(users.map(u => [u.id, u.name]));
+//   return {
+//     labels: rows.map(r => userMap.get(r.userId) || "Unknown"),
+//     datasets: [{ label: "Spent Amount", data: rows.map(r => r._sum.amount ?? 0) }],
+//   };
+// };
 // ---------- Low Stock Products ----------
 const mapLowStockProducts = (rows) => ({
     labels: rows.map(r => r.name),

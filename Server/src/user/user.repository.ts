@@ -3,8 +3,8 @@ import { UserRole } from "../generated/prisma/enums";
 
 interface FindUsersParams{
  limit:number;
-    after?:{createdAt:string;id:number} | null;
-    before?:{createdAt:string;id:number} | null;
+    after?:{createdAt:Date;id:number} | null;
+    before?:{createdAt:Date;id:number} | null;
     search?:string;
     role?:UserRole;
 }

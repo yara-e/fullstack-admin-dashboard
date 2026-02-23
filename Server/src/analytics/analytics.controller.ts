@@ -40,10 +40,10 @@ export const ordersPerHourHandler = async (req: Request, res: Response) => {
 };
 
 // ---------- Top Customers ----------
-export const topCustomersHandler = async (req: Request, res: Response) => {
-  const limit = Number(req.query.limit || 5);
-  res.json(await service.getTopCustomersService(limit));
-};
+// export const topCustomersHandler = async (req: Request, res: Response) => {
+//   const limit = Number(req.query.limit || 5);
+//   res.json(await service.getTopCustomersService(limit));
+// };
 
 // ---------- Low Stock Products ----------
 export const lowStockProductsHandler = async (req: Request, res: Response) => {

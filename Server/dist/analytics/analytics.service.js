@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderCompletionRateService = exports.getLowStockProductsService = exports.getTopCustomersService = exports.getOrdersPerHourService = exports.getRevenueByPaymentMethodService = exports.getBestSellersService = exports.getUserRolesService = exports.getOrdersStatusService = exports.getOrdersTrendService = exports.getOverviewService = void 0;
+exports.getOrderCompletionRateService = exports.getLowStockProductsService = exports.getOrdersPerHourService = exports.getRevenueByPaymentMethodService = exports.getBestSellersService = exports.getUserRolesService = exports.getOrdersStatusService = exports.getOrdersTrendService = exports.getOverviewService = void 0;
 const repo = __importStar(require("./analytics.repository"));
 const mapper = __importStar(require("./analytics.mapper"));
 const cachedService_1 = require("../common/cache/cachedService");
@@ -113,16 +113,15 @@ const getOrdersPerHourService = async (days) => {
 };
 exports.getOrdersPerHourService = getOrdersPerHourService;
 // ---------- Top Customers ----------
-const getTopCustomersService = async (limit = 5) => {
-    return (0, cachedService_1.cachedService)({
-        key: cacheKeys_1.cacheKeys.topCustomers(limit),
-        fetcher: async () => {
-            const rows = await repo.getTopCustomersRaw(limit);
-            return mapper.mapTopCustomersChart(rows);
-        },
-    });
-};
-exports.getTopCustomersService = getTopCustomersService;
+// export const getTopCustomersService = async (limit = 5) => {
+//   return cachedService({
+//     key: cacheKeys.topCustomers(limit),
+//     fetcher: async () => {
+//       const rows = await repo.getTopCustomersRaw(limit);
+//       return mapper.mapTopCustomersChart(rows);
+//     },
+//   });
+// };
 // ---------- Low Stock Products ----------
 const getLowStockProductsService = async (threshold = 5) => {
     return (0, cachedService_1.cachedService)({

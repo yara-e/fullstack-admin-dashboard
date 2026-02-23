@@ -83,15 +83,15 @@ export const getOrdersPerHourService = async (days: number) => {
 };
 
 // ---------- Top Customers ----------
-export const getTopCustomersService = async (limit = 5) => {
-  return cachedService({
-    key: cacheKeys.topCustomers(limit),
-    fetcher: async () => {
-      const rows = await repo.getTopCustomersRaw(limit);
-      return mapper.mapTopCustomersChart(rows);
-    },
-  });
-};
+// export const getTopCustomersService = async (limit = 5) => {
+//   return cachedService({
+//     key: cacheKeys.topCustomers(limit),
+//     fetcher: async () => {
+//       const rows = await repo.getTopCustomersRaw(limit);
+//       return mapper.mapTopCustomersChart(rows);
+//     },
+//   });
+// };
 
 // ---------- Low Stock Products ----------
 export const getLowStockProductsService = async (threshold = 5) => {

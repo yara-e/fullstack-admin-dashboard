@@ -2,8 +2,8 @@ import {prisma} from "../common/db/client"
 
 interface FindProductsParams{
  limit:number;
-    after?:{createdAt:string;id:number} | null;
-    before?:{createdAt:string;id:number} | null;
+    after?:{createdAt:Date;id:number} | null;
+    before?:{createdAt:Date;id:number} | null;
     search?:string;
     minPrice?:number;
     maxPrice?:number;

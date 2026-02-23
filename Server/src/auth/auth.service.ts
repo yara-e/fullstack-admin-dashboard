@@ -5,7 +5,7 @@ import { comparePassword } from "./utils/hash";
 
 export const login = async (email: string, password: string) => {
     const user = await findUserByEmail(email);
-    if (!user) {
+    if (!user || !user.password) {
         
         throw new AppError( "Invalid email or password" , 401);
     }   

@@ -29,7 +29,9 @@ const getProductService = async (query) => {
         search: query.search,
         minPrice,
         maxPrice,
-        isActive: query.isActive,
+        isActive: query.isActive !== undefined
+            ? query.isActive === "true"
+            : undefined,
     });
     const hasMore = products.length > limit;
     if (hasMore) {
