@@ -7,6 +7,7 @@ The system includes authentication, role-based authorization, cursor-based pagin
 ---
 # Live Demo 
 click here : https://fullstack-admin-dashboard-svjz.vercel.app/
+
 demo credentials:
 - email : admin@example.com
 - password : 123456
