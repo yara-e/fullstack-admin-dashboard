@@ -6,9 +6,9 @@ The system includes authentication, role-based authorization, cursor-based pagin
 
 ---
 # Live Demo 
-[click here](https://dashboard-for-admins.up.railway.app/)
+[click here]([https://dashboard-for-admins.up.railway.app/](https://fullstack-admin-dashboard-svjz.vercel.app/))
 demo credentials:
-- email : emily_thomas9@example.com
+- email : admin@example.com
 - password : 123456
 
 ## Tech Stack
