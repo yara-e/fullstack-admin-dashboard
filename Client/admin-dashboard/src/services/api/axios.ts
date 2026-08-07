@@ -5,7 +5,7 @@ import { logout } from "@/features/auth/authSlice";
 
 
 export const api = axios.create({
-  baseURL: "https://fullstack-admin-dashboard-production.up.railway.app/",
+  baseURL: "http://localhost:8000",
 });
 
 api.interceptors.request.use((config) => {
