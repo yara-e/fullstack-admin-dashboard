@@ -5,7 +5,7 @@ import { logout } from "@/features/auth/authSlice";
 
 
 export const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://fullstack-admin-dashboard-sage.vercel.app/",
 });
 
 api.interceptors.request.use((config) => {
